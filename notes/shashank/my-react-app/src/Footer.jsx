@@ -1,9 +1,9 @@
-function Footer(){
-    return(
-        <footer>
-            <p>&copy; {new Date().getFullYear()} skill-It</p>
-        </footer>
-    )
+function Footer() {
+  return (
+    <footer>
+      <p>&copy; {new Date().getFullYear()} skill-It</p>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;
