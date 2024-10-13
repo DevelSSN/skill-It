@@ -7,10 +7,11 @@ function App() {
   return (
     <>
       <Header />
+      <Card name="Shashank" age={19} />
+      <Card name="Billy" age={16} />
+      <Card name="Sumanth" age={19} />
       <Card />
-      <Card />
-      <Card />
-      {/* <Food /> */}
+      <Food />
       <Footer />
     </>
   );
