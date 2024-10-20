@@ -1,21 +1,24 @@
+import React, { useState } from "react";
+import styles from "./Header/Header.module.css";
+import { FiMenu } from "react-icons/fi";
+
 function Header() {
   return (
     <header>
-      <h1>My website</h1>
+      <h1 className={styles.home}>My website</h1>
       <nav>
         <ul>
-          <li>
-            <a href="#">Home</a>
+          <li className={styles.nav2}>
+            <a href="#">About us</a>
           </li>
-          <li>
-            <a href="#">About</a>
+          <li className={styles.nav2}>
+            <a href="#">Contact us</a>
           </li>
-          <li>
-            <a href="#">Contact</a>
+          <li className={styles.nav1}>
+            <a href="#">Login</a>
           </li>
         </ul>
       </nav>
-      <hr />
     </header>
   );
 }

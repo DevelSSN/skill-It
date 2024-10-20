@@ -1,0 +1,31 @@
+header {
+    background-color: var(--second-primary-color);
+    margin: 0;
+    padding: 0;
+}
+
+.home {
+    color: var(--secondary-color);
+    font-family: var(--font-home);
+    font-size: 2rem;
+    text-align: start;
+}
+
+.nav2 {
+    font-family: var(--font-nav2);
+    font-size: 1.5rem;
+}
+
+.nav1 {
+    font-family: var(--font-nav1);
+    font-size: 1.5rem;
+}
+
+.hamburger-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hamburger-icon:hover {
+    transform: rotate(90deg);
+}

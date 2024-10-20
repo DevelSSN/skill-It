@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
-
+import styles from "./Card/Card.module.css";
 function Card(props) {
   return (
-    <div className="card">
+    <div className={styles.card}>
       <img
-        className="card-img"
-        src="https://avatars.githubusercontent.com/u/140680675?v=4https://via.placeholder.com/150"
+        className={styles.cardImg}
+        src="https://avatars.githubusercontent.com/u/140680675?v=4"
         alt="Profile Pic"
       />
-      <h2 className="card-title">Name: {props.name}</h2>
-      <p className="card-desc">
+      <h2 className={styles.cardTitle}>Name: {props.name}</h2>
+      <p className={styles.cardDesc}>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Age:{" "}
         {props.age}
       </p>
