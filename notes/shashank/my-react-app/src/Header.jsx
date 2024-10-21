@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import Button from "./Button.jsx";
 import styles from "./Header/Header.module.css";
-import { FiMenu } from "react-icons/fi";
-
 function Header() {
   return (
     <header>
@@ -16,6 +15,13 @@ function Header() {
           </li>
           <li className={styles.nav1}>
             <a href="#">Login</a>
+          </li>
+          <li className={styles.nav1}>
+            <Button
+              buttonClass={styles.button}
+              buttonName="Signup"
+              buttonContent="Signup"
+            />
           </li>
         </ul>
       </nav>
