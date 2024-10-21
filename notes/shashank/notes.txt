@@ -3,3 +3,8 @@ src/assets -> Local files to be bundled later
 modules= className={styles.button} unique name via hash assigned
 props allows us to share properties between components
 
+React hooks- allow you to have a stateful variable
+syntax: [var,varSetterName]
+functions like useState() useCallback, useContext etc.
+
+

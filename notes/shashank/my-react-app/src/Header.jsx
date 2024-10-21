@@ -4,7 +4,9 @@ import styles from "./Header/Header.module.css";
 function Header() {
   return (
     <header>
-      <h1 className={styles.home}>My website</h1>
+      <h1 className={styles.home}>
+        <a href="/">My website</a>
+      </h1>
       <nav>
         <ul>
           <li className={styles.nav2}>
