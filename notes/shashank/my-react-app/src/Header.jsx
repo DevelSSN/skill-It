@@ -21,7 +21,11 @@ function Header() {
               buttonClass={styles.button}
               buttonName="Signup"
               buttonContent="Signup"
-            />
+              buttonWork={(event) => {
+                alert(event);
+                confirm("Signing up?");
+              }}
+            ></Button>
           </li>
         </ul>
       </nav>
