@@ -1,0 +1,31 @@
+/* NotFound.module.css */
+.notFound {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #ff7eaa;
+    text-align: center;
+}
+
+.notFound h1 {
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+
+.notFound p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.homeLink {
+    padding: 10px 20px;
+    background-color: #ff7eaa;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: bold;
+}

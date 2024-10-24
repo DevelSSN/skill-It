@@ -1,0 +1,46 @@
+/* HomeSection.module.css */
+
+.home {
+    width: 99vw;
+    min-height: 100%;
+    /* max-width: calc(100vw); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 50px;
+    background: linear-gradient(135deg, #ff7eaa, #ffbcff);
+    color: white;
+}
+
+.homeText h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.homeText p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: white;
+    color: #ff7eaa;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.getStarted {
+    background-color: #005bbb;
+    color: white;
+}
+
+.homeImage img {
+    max-width: 400px;
+}
