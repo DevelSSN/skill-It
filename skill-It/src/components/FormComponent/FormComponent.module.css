@@ -1,0 +1,75 @@
+.container {
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    margin-bottom: 20px;
+}
+
+.nav a {
+    margin: 0 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.signupButton {
+    background-color: #7a1e91;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+.input,
+.textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px dashed white;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.textarea {
+    height: 60px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancelButton,
+.okButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancelButton {
+    background-color: red;
+    color: white;
+}
+
+.okButton {
+    background-color: blue;
+    color: white;
+}

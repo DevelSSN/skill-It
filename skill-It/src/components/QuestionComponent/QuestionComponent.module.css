@@ -1,0 +1,42 @@
+.container {
+    width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    /* justify-items: center; */
+    /* align-items: center; */
+    gap: 20px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+
+.btn {
+    align-self: center;
+    width: fit-content;
+    min-width: 60px;
+    padding: 15px 30px;
+    background-color: blue;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.apply {
+    background-color: #1e90ff;
+}
+
+.hire {
+    background-color: #0073e6;
+}

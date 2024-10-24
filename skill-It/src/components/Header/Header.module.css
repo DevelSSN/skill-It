@@ -1,0 +1,29 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navItem {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.signUp {
+    background: linear-gradient(to right, magenta, purple);
+    padding: 10px 20px;
+    border-radius: 20px;
+}
