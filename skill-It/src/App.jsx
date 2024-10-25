@@ -9,6 +9,7 @@ import QuestionComponent from "./components/QuestionComponent/QuestionComponent"
 import SearchList from "./components/SearchList/SearchList";
 import HomeSection from "./components/HomeSection/HomeSection";
 import NotFound from "./NotFound";
+import ContactUs from "./components/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/" element={<HomeSection />} />
         <Route path="/home" element={<HomeSection />} />
         <Route path="job" element={<QuestionComponent />} />
-        <Route path="contact" element={<FormComponent />} />
+        <Route path="contact" element={<ContactUs />} />
         <Route path="result" element={<QueryResult />} />
         <Route path="search" element={<SearchList />} />
         <Route path="profile" element={<Profile />} />
