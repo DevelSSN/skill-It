@@ -1,8 +1,7 @@
 .container {
-    width: 90%;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #222;
+    width: 100vw;
+    height: 100vb;
+    background-color: #0e0e0e;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -17,8 +16,10 @@
 }
 
 h1 {
+    padding-top: 28vb;
     font-size: 2.5rem;
     font-weight: 400;
+    color: aliceblue;
 }
 
 .btn {
@@ -32,6 +33,7 @@ h1 {
     font-size: 18px;
     border-radius: 10px;
 }
+
 
 .apply {
     background-color: #1e90ff;
