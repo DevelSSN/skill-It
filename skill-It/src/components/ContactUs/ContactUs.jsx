@@ -6,6 +6,7 @@ const ContactUs = () => {
   return (
     <div className={styles.container}>
       <Header />
+      <div className={styles.frm}>
       <h2>Get in Touch</h2>
       <form action="/submit" method="post">
         <label htmlFor="name">Name:</label>
@@ -17,8 +18,9 @@ const ContactUs = () => {
         <label htmlFor="message">Message:</label>
         <textarea id="message" name="message" rows="5" required></textarea>
 
-        <button type="submit">Send</button>
+        <button className={styles.sendButton} type="submit">Send</button>
       </form>
+      </div>
     </div>
   );
 };
