@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 const HomeSection = () => {
   return (
     <body>
-      <Header />
+      <Header className={styles.top} />
       <main>
         <section className={styles.home}>
           <div className={styles.homeText}>
