@@ -11,7 +11,7 @@ const QuestionComponent = () => {
         <a href="#" className={`${styles.btn} ${styles.apply}`}>
           Apply
         </a>
-        <a href="#" className={`${styles.btn} ${styles.hire}`}>
+        <a href="/search" className={`${styles.btn} ${styles.hire}`}>
           Hire
         </a>
       </div>

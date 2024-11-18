@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 
 const NotFound = () => {
   return (
-    <>
+    <div className="container">
       <Header />
       <div className={styles.notFound}>
         <h1>404</h1>
@@ -15,7 +15,7 @@ const NotFound = () => {
           Go back to Home
         </a>
       </div>
-    </>
+    </div>
   );
 };
 

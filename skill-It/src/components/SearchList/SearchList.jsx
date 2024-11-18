@@ -15,6 +15,11 @@ const SearchList = () => {
     "Blueberry",
     "Watermelon",
     "Kiwi",
+    "Cherry",
+    "Pear",
+    "Papaya",
+    "Guava",
+    "Lychee",
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,17 +48,19 @@ const SearchList = () => {
           onChange={handleSearchChange}
           className={styles.searchInput}
         />
-        <ul className={styles.itemList}>
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item, index) => (
-              <li key={index} className={styles.item}>
-                {item}
-              </li>
-            ))
-          ) : (
-            <li className={styles.noResults}>No results found</li>
-          )}
-        </ul>
+        <div className={styles.results}>
+          <ul className={styles.itemList}>
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item, index) => (
+                <li key={index} className={styles.item}>
+                  {item}
+                </li>
+              ))
+            ) : (
+              <li className={styles.noResults}>No results found</li>
+            )}
+          </ul>
+        </div>
       </div>
     </>
   );

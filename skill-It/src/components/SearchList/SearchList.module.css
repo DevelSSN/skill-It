@@ -1,7 +1,6 @@
 .container {
-    width: 90%;
-    margin: 50px auto;
-    padding: 20px;
+    width: 100vw;
+    height: 100vb;
     background-color: #222;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -14,16 +13,30 @@
     font-size: 16px;
 }
 
+/* .results {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0 10%;
+    padding: auto;
+} */
+
 .itemList {
-    list-style: none;
-    padding: 0;
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically (optional) */
+    flex-wrap: wrap; /* Allow items to wrap onto new lines if needed */
+    list-style-type: none; /* Remove default list bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0;
 }
 
 .item {
+    /* width: fit-content; */
     background-color: #343a40;
     color: white;
     padding: 10px;
-    margin: 5px 0;
+    margin: 25px 0;
     border-radius: 5px;
 }
 

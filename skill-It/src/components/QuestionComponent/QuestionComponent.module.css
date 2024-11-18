@@ -8,10 +8,10 @@
 
 .actions {
     display: flex;
-    flex-direction: column;
-    /* justify-items: center; */
-    /* align-items: center; */
-    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
     width: 100%;
 }
 
@@ -33,7 +33,6 @@ h1 {
     font-size: 18px;
     border-radius: 10px;
 }
-
 
 .apply {
     background-color: #1e90ff;
