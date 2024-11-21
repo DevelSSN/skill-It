@@ -1,15 +1,15 @@
 /* HomeSection.module.css */
 
 .home {
-    width: 99vw;
-    min-height: 100%;
-    /* max-width: calc(100vw); */
+    
+    margin :0px;
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
-    padding: 100px 50px;
-    background: linear-gradient(135deg, #ff7eaa, #ffbcff);
-    color: white;
+    align-items: center;
+    padding: 0;
+    width: 100vw; 
+    height: auto; 
+    color: rgb(8, 8, 8);
 }
 
 .top{
@@ -20,22 +20,28 @@
     align-items: left;
     font-size: 48px;
     margin-bottom: 20px;
+    color: black;
+    font-family: 'Fira Code', monospace;
+
 }
 
 .homeText p {
     align-items: left;
     font-size: 18px;
     margin-bottom: 20px;
+    font-family: 'Anonymous Pro', monospace;
+
+
 }
 
 .ctaButtons {
-    /* padding-left:7; */
+    padding-left:50px;
     display: flex;
     gap: 15px;
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 10px 60px;
     background-color: white;
     color: #ff7eaa;
     text-decoration: none;
@@ -46,11 +52,12 @@
 .getStarted {
     /* padding-left: 7vw; */
     background-color: #005bbb;
-    color: white;
+    color: rgb(248, 69, 164);
+    
 }
 
 .homeImage img {
     /* padding-right: ; */
     max-width: 400vb;
-    max-height: 600px;
+    max-height: 600px;
 }

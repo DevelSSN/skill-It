@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 
 const HomeSection = () => {
   return (
-    <body>
+    <>
       <Header className={styles.top} />
       <main>
         <section className={styles.home}>
@@ -26,16 +26,16 @@ const HomeSection = () => {
             </div>
           </div>
           <div className={styles.homeImage}>
-            <img
+            {/* <img
               src={homeImage}
               width="600"
               height="400"
               alt="Illustration of person working"
-            />
+            /> */}
           </div>
         </section>
       </main>
-    </body>
+    </>
   );
 };
 
