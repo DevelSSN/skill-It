@@ -25,12 +25,12 @@ const HomeSection = () => {
             </div>
           </div>
           <div className={styles.homeImage}>
-            <img
+            {/* <img
               src={homeImage}
               width="600"
               height="400"
               alt="Illustration of person working"
-            />
+            /> */}
           </div>
         </section>
       </main>

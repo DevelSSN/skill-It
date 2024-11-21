@@ -7,9 +7,13 @@
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 40px;
     font-weight: bold;
     text-decoration: none;
+    font-family: 'Ubuntu Mono', monospace;
+
+    color: #1710e9; /* Bright red-orange */
+
 }
 
 .logo:hover {
@@ -25,7 +29,7 @@
 .navItem {
     text-decoration: none;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .signUp {
@@ -35,5 +39,5 @@
 }
 
 .signUp:hover {
-    text-decoration: none;
+    text-decoration: none;
 }
