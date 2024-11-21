@@ -1,12 +1,11 @@
 // HomeSection.jsx
-import React from "react";
 import styles from "./HomeSection.module.css";
 import homeImage from "./new.png"; // Ensure the image is in the correct path
 import Header from "../Header/Header";
 
 const HomeSection = () => {
   return (
-    <body>
+    <>
       <Header className={styles.top} />
       <main>
         <section className={styles.home}>
@@ -35,7 +34,7 @@ const HomeSection = () => {
           </div>
         </section>
       </main>
-    </body>
+    </>
   );
 };
 
