@@ -5,8 +5,8 @@ import styles from "./LearnMore.module.css"; // CSS for styling
 function LearnMore() {
   return (
     <>
-      <Header />
       <div className={styles['learn-more-container']}> {/* Ensure correct className usage */}
+      <Header />
         <section className={styles['intro-section']}>
           <h2>Welcome to Skill-It</h2>
           <p>
