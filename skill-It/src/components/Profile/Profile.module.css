@@ -1,10 +1,18 @@
 .container {
-    width: 100%;
-    margin: 0px auto;
+    width: 100vw;
+    min-height: 100vb;
     padding: 20px;
-    background-color: #223;
+    background-color: #222;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.profileContainer{
+    margin-top:20px;
+}
+
+.info, .profilePic{
+    color: #fff;
 }
 
 .profilePic {
@@ -26,7 +34,7 @@
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 20px 0;
 }
 

@@ -64,7 +64,10 @@
 
 body{
     background-image: url(home.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-position: left top; /* Position the background at the bottom-left */
+    background-size: cover; /* Ensures the image covers the entire viewport while maintaining aspect ratio */
+    background-repeat: no-repeat; /* Prevents repeating the image */
+    height: 100vh; /* Ensure the body takes the full viewport height */
+    margin: 0; /* Removes any default margin */
 }
 
