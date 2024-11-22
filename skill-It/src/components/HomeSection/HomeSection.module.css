@@ -61,3 +61,10 @@
     max-width: 400vb;
     max-height: 600px;
 }
+
+body{
+    background-image: url(home.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+

@@ -3,6 +3,10 @@ h1, h2, h3 {
   color: #fff; /* Ensure headers are white */
 }
 
+body{
+  background-color: black;
+}
+
 h2 {
   font-size: 2rem;
   margin-top: 1rem;
