@@ -1,0 +1,27 @@
+.googleLoginContainer {
+    text-align: center;
+}
+
+.profile {
+    text-align: center;
+    margin: 20px;
+}
+
+.profileImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.navItem {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: linear-gradient(to right, magenta, purple);
+}
+
+.navItem:hover {
+    background: linear-gradient(to right, purple, magenta);
+}

@@ -1,8 +1,7 @@
-3// import { useState } from "react";
+3; // import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "normalize.css";
 import "./App.css";
-import FormComponent from "./components/FormComponent/FormComponent";
 import Profile from "./components/Profile/Profile";
 import QueryResult from "./components/QueryResult/QueryResult";
 import QuestionComponent from "./components/QuestionComponent/QuestionComponent";

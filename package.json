@@ -10,4 +10,9 @@
   "author": "",
   "license": "ISC",
   "description": ""
+
+  "dependencies": {
+    "@react-oauth/google": "^0.12.1",
+    "axios": "^1.7.7"
+  }
 }

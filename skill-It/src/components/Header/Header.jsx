@@ -1,5 +1,5 @@
-import React from "react";
 import styles from "./Header.module.css";
+import GoogleLoginComponent from "../GoogleLoginComponent/GoogleLoginComponent";
 
 const Header = () => {
   return (
@@ -21,15 +21,9 @@ const Header = () => {
               Jobs
             </a>
           </li>
+
           <li>
-            <a href="login" className={styles.navItem}>
-              Login
-            </a>
-          </li>
-          <li>
-            <a href="signup" className={`${styles.navItem} ${styles.signUp}`}>
-              Sign Up
-            </a>
+            <GoogleLoginComponent />
           </li>
         </ul>
       </nav>
