@@ -17,6 +17,8 @@
 }
 
 .homeText h1 {
+    /* animation: typing 2s steps(50), blink .5s step-end infinite alternate;
+    animation-iteration-count: 2; */
     align-items: left;
     font-size: 48px;
     margin-bottom: 20px;
@@ -26,10 +28,13 @@
 }
 
 .homeText p {
+    /* animation: typing 2s steps(50), blink .5s step-end infinite alternate;
+    animation-iteration-count: 2; */
     align-items: left;
     font-size: 18px;
     margin-bottom: 20px;
     font-family: 'Anonymous Pro', monospace;
+    color:black;
 
 
 }
@@ -68,3 +73,17 @@ body{
     background-repeat: no-repeat;
 }
 
+/* @keyframes typing {
+    from {
+      width: 0
+    }
+    to{
+        width:100%
+    }
+  }
+      
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+} */
