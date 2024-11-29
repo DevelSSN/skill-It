@@ -53,10 +53,10 @@ function LearnMore() {
           <h2>Meet the Creators</h2>
           <p>Skill-It was created by passionate individuals striving to help others succeed:</p>
           <ul>
-            <li><strong>Shashank</strong> - Founder & Developer</li>
-            <li><strong>Sanath S. Shetty</strong> - Co-Founder & Designer</li>
-            <li><strong>Sumanth</strong> - Lead Developer</li>
-            <li><strong>Srujan</strong> - Marketing Specialist</li>
+            <li><strong>Shashank Shantaram</strong></li>
+            <li><strong>Sanath S. Shetty</strong> </li>
+            <li><strong>Sumanth S. Shetty</strong></li>
+            <li><strong>Srujan k r</strong> </li>
           </ul>
         </section>
 
