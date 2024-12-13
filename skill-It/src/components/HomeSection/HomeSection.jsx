@@ -16,7 +16,7 @@ const HomeSection = () => {
               Explore numerous open positions and find your perfect fit today!
             </p>
             <div className={styles.ctaButtons}>
-              <a href="#" className={`${styles.btn} ${styles.learnMore}`}>
+              <a href="/learnmore" className={`${styles.btn} ${styles.learnMore}`}>
                 Learn More
               </a>
               <a href="#" className={`${styles.btn} ${styles.getStarted}`}>

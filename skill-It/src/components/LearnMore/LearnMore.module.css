@@ -1,0 +1,91 @@
+/* General Styles */
+h1, h2, h3 {
+  color: #fff; /* Ensure headers are white */
+}
+
+body{
+ 
+  height: auto;
+ 
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+/* Layout Styles */
+.learn-more-container {
+  /* padding: 3rem 2rem; */
+  width : 100vw;
+  margin: 0px;
+  background-color: black;
+  
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+p, ul {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+<<<<<<< HEAD
+  line-height: 1.6;
+  color: #ffffff; /* Set text color for paragraphs and lists */
+=======
+  line-height: 1.5;
+>>>>>>> 653affc01b05128061d9330df893daafd6cbaf1f
+}
+
+.creators-section ul,
+.categories-section ul {
+  list-style-type: none;
+  color: #fff;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Section Styles */
+.intro-section, .features-section, .categories-section, .creators-section {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 10%;
+}
+
+.intro-section h2, 
+.features-section h2, 
+.categories-section h2, 
+.creators-section h2 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.intro-section p,
+.features-section p,
+.categories-section p,
+.creators-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #fff; /* Ensure paragraphs are also readable */
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1rem;
+  color: #fff; /* Light gray color for footer */
+}
+
