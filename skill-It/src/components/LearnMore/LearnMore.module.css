@@ -37,12 +37,8 @@ h2 {
 p, ul {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-<<<<<<< HEAD
-  line-height: 1.6;
   color: #ffffff; /* Set text color for paragraphs and lists */
-=======
   line-height: 1.5;
->>>>>>> 653affc01b05128061d9330df893daafd6cbaf1f
 }
 
 .creators-section ul,
