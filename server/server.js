@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session Configuration
 app.use(session({
-  secret: 'your-secret-key', // Replace with a secure key
+  secret: process.env.GOOGLE_CLIENT_SECRET ,//Replace with a secure key
   resave: false,
   saveUninitialized: true,
 }));
@@ -27,5 +27,5 @@ app.use('/auth', authRoutes);  // Google OAuth Routes
 app.use('/skills', skillsRoutes);  // Skill Management Routes
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

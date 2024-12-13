@@ -31,6 +31,7 @@ passport.use(new GoogleStrategy({
       return done(null, newUser);
     }
   } catch (err) {
+    console.error(err);
     return done(err);
   }
 }));
