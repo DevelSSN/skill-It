@@ -1,4 +1,9 @@
 /* HomeSection.module.css */
+.container
+{
+    width: 100vw;
+}
+
 
 .home {
     
@@ -12,8 +17,12 @@
     color: rgb(8, 8, 8);
 }
 
-.top{
-    width: fit-content;
+/* .top{
+    width: 100vw;
+} */
+.homeText{
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 .homeText h1 {
@@ -40,9 +49,10 @@
 }
 
 .ctaButtons {
-    padding-left:50px;
     display: flex;
     gap: 15px;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn {
@@ -57,8 +67,13 @@
 .getStarted {
     /* padding-left: 7vw; */
     background-color: #005bbb;
-    color: rgb(248, 69, 164);
+    color: white;
     
+}
+
+.learnMore {
+    background-color: #ff7eaa;
+    color: white;
 }
 
 .homeImage img {

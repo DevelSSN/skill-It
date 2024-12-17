@@ -5,8 +5,8 @@ import Header from "../Header/Header";
 
 const HomeSection = () => {
   return (
-    <>
-      <Header className={styles.top} />
+    <div className={styles.container} >
+      <Header />
       <main>
         <section className={styles.home}>
           <div className={styles.homeText}>
@@ -34,7 +34,7 @@ const HomeSection = () => {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 };
 
