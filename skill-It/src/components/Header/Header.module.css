@@ -3,14 +3,14 @@
     justify-content: space-between; /* Keeps logo on left, other items on right */
     align-items: center; /* Centers items vertically */
     padding: 20px;
-    width: 100vw;
+    width: 100%;
 }
 
 .logo {
     font-size: 40px;
     font-weight: bold;
     text-decoration: none;
-    font-family: 'Ubuntu Mono', monospace;
+    font-family: "Ubuntu Mono", monospace;
     color: #1710e9; /* Bright blue */
 }
 
@@ -23,6 +23,7 @@
     display: flex;
     gap: 20px;
     justify-content: center; /* Centers the navigation items horizontally */
+    align-items: center;
     flex-grow: 1; /* Makes navList take up remaining space */
 }
 

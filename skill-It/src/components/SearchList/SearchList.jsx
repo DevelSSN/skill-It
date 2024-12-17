@@ -28,7 +28,7 @@ const SearchList = () => {
 
   // Filter items based on search term
   const filteredItems = items.filter((item) =>
-    item.toLowerCase().includes(searchTerm.toLowerCase())
+    item.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Handle input change
@@ -37,34 +37,32 @@ const SearchList = () => {
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <Header />
-        <input
-          type="text"
-          placeholder="Search for an item..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className={styles.searchInput}
-        />
-        <div className={styles.results}>
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item, index) => (
-              <Card
-                key={index}
-                name={item}
-                age={Math.floor(Math.random() * 30) + 20} // Random age for demo
-                rate={`₹ ${Math.floor(Math.random() * 100) + 50}`} // Random rate for demo
-                job="Fruit Seller"
-                phone={1234567890 + index} // Simulated unique phone numbers
-              />
-            ))
-          ) : (
-            <div className={styles.noResults}>No results found</div>
-          )}
-        </div>
+    <div className={styles.container}>
+      <Header />
+      <input
+        type="text"
+        placeholder="Search for an item..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className={styles.searchInput}
+      />
+      <div className={styles.results}>
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item, index) => (
+            <Card
+              key={index}
+              name={item}
+              age={Math.floor(Math.random() * 30) + 20} // Random age for demo
+              rate={`₹ ${Math.floor(Math.random() * 100) + 50}`} // Random rate for demo
+              job="Fruit Seller"
+              phone={1234567890 + index} // Simulated unique phone numbers
+            />
+          ))
+        ) : (
+          <div className={styles.noResults}>No results found</div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

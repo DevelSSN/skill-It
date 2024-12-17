@@ -9,7 +9,8 @@ import SearchList from "./components/SearchList/SearchList";
 import HomeSection from "./components/HomeSection/HomeSection";
 import NotFound from "./NotFound";
 import ContactUs from "./components/ContactUs/ContactUs";
-import LearnMore from "./components/learnmore/LearnMore";
+import LearnMore from "./components/LearnMore/LearnMore";
+import SkillsForm from "./components/SkillForm/SkillsForm";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="search" element={<SearchList />} />
         <Route path="profile" element={<Profile />} />
         <Route path="learnmore" element={<LearnMore />} />
+  	<Route path="apply" element={<SkillsForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
