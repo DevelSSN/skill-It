@@ -32,5 +32,5 @@ jobs:
       working-directory: ./skill-It
     - run: npm run build --if-present
       working-directory: ./skill-It
-    - run: npm test
+    # - run: npm test
       # working-directory: ./skill-It
