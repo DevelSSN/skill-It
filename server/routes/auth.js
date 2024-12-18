@@ -51,15 +51,25 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Login Route
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get("/google", (req, res, next) => {
+  const redirectUri = req.query.redirect_uri || "http://localhost:5173"; // Default fallback
+  req.session.redirectUri = redirectUri; // Store the redirect URI in session
+  passport.authenticate("google", { scope: ["profile", "email"] })(req, res, next);
+});
 
-// OAuth Callback Route
-router.get('/google/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/login',
-    successRedirect: '/dashboard',
-  })
-);
+// Google OAuth callback route
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
+  // Get the stored redirect URI from session
+  const redirectUri = req.session.redirectUri || "http://localhost:5173"; // Default fallback
+  res.redirect(redirectUri); // Redirect the user to the dynamic URL
+});
+
+// Logout route
+router.post("/auth/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return res.status(500).send("Logout failed");
+    res.send("Logged out successfully");
+  });
+});
 
 module.exports = router;

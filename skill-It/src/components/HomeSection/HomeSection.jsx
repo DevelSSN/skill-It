@@ -19,7 +19,7 @@ const HomeSection = () => {
               <a href="/learnmore" className={`${styles.btn} ${styles.learnMore}`}>
                 Learn More
               </a>
-              <a href="#" className={`${styles.btn} ${styles.getStarted}`}>
+              <a href="/apply" className={`${styles.btn} ${styles.getStarted}`}>
                 Get Started
               </a>
             </div>

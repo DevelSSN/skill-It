@@ -24,7 +24,7 @@ function App() {
         <Route path="search" element={<SearchList />} />
         <Route path="profile" element={<Profile />} />
         <Route path="learnmore" element={<LearnMore />} />
-  	<Route path="apply" element={<SkillsForm />} />
+  	    <Route path="apply" element={<SkillsForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
