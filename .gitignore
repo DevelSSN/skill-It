@@ -1,5 +1,0 @@
-#Ignore dotfiles or dot folders
-.*
-!.gitignore
-
-/server/skillIt-server/target/
