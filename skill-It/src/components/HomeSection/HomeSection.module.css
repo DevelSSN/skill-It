@@ -83,7 +83,7 @@
 }
 
 body{
-    background-image: url(home.jpg);
+    background-image: url(../../home.jpg);
     background-position: left top; /* Position the background at the bottom-left */
     background-size: cover; /* Ensures the image covers the entire viewport while maintaining aspect ratio */
     background-repeat: no-repeat; /* Prevents repeating the image */

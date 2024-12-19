@@ -1,11 +1,11 @@
 // HomeSection.jsx
 import styles from "./HomeSection.module.css";
-import homeImage from "./new.png"; // Ensure the image is in the correct path
+// import homeImage from "./new.png"; // Ensure the image is in the correct path
 import Header from "../Header/Header";
 
 const HomeSection = () => {
   return (
-    <div className={styles.container} >
+    <div className={styles.container}>
       <Header />
       <main>
         <section className={styles.home}>
@@ -16,7 +16,10 @@ const HomeSection = () => {
               Explore numerous open positions and find your perfect fit today!
             </p>
             <div className={styles.ctaButtons}>
-              <a href="/learnmore" className={`${styles.btn} ${styles.learnMore}`}>
+              <a
+                href="/learnmore"
+                className={`${styles.btn} ${styles.learnMore}`}
+              >
                 Learn More
               </a>
               <a href="/apply" className={`${styles.btn} ${styles.getStarted}`}>
