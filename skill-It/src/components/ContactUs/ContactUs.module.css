@@ -53,7 +53,7 @@ label {
 }
 
 input,
-textarea {
+textarea, text {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #444; /* Dark border */

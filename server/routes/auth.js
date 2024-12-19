@@ -75,11 +75,14 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    // Get the stored redirect URI from session
-    // const redirectUri = req.session.redirectUri || "http://localhost:5173"; // Default fallback
-    // res.redirect(redirectUri); // Redirect the user to the dynamic URL
     const user = req.user; // `req.user` contains the authenticated user data from the deserializeUser method
-    res.json(user);
+
+    // Option 1: Store user data in the session
+    req.session.user = user;
+
+    // Option 2: Or redirect the user to a frontend page with user data in the query params
+    const redirectUri = req.session.redirectUri || "http://localhost:5173/"; // Default fallback
+    res.redirect(`${redirectUri}?user=${encodeURIComponent(JSON.stringify(user))}`);
   },
 );
 

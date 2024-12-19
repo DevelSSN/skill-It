@@ -5,25 +5,72 @@ const router = express.Router();
 
 // Add a new skill
 router.post('/add', async (req, res) => {
-  const { userId, skillName, proficiencyLevel } = req.body;
+  const { id, skills, experience } = req.body;
+
+  // Ensure id and skills are provided
+  if (!id || !skills || !experience) {
+    return res.status(400).json({ error: "User ID, skills, and experience are required." });
+  }
 
   try {
-    const [result] = await db.query(
-      'INSERT INTO Skills (userId, skillName, proficiencyLevel) VALUES (?, ?, ?)',
-      [userId, skillName, proficiencyLevel]
-    );
-    res.json({ message: 'Skill added successfully', skillId: result.insertId });
+    // Start a transaction to ensure atomicity of operations
+    const connection = await db.getConnection();
+    await connection.beginTransaction();
+    console.log("Conn Success");
+    try {
+      // Loop through each skill and add it if necessary
+      for (let skillName of skills) {
+        let skillId;
+
+        // Check if the skill exists
+        const [existingSkill] = await connection.query(
+          "SELECT id FROM Skills WHERE skillName = ?",
+          [skillName]
+        );
+
+        if (existingSkill.length > 0) {
+          // If skill exists, use the existing ID
+          skillId = existingSkill[0].id;
+        } else {
+          // If skill doesn't exist, insert it and get the new skill ID
+          const [insertResult] = await connection.query(
+            "INSERT INTO Skills (skillName) VALUES (?)",
+            [skillName]
+          );
+          skillId = insertResult.insertId; // Get the newly inserted skill ID
+        }
+
+        // Insert the user-skill relationship into the Has table with experience
+        await connection.query(
+          "INSERT INTO Has (uid, sid, proficiencyLevel) VALUES (?, ?, ?)",
+          [id, skillId, experience]
+        );
+      }
+
+      // Commit the transaction
+      await connection.commit();
+      res.status(200).json({ message: "User skills and experience added successfully" });
+    } catch (error) {
+      // Rollback if any error occurs
+      await connection.rollback();
+      console.error("Error in transaction:", error);
+      res.status(500).json({ error: "An error occurred while adding user skills" });
+    } finally {
+      // Release the connection back to the pool
+      connection.release();
+    }
+
   } catch (err) {
-    res.status(500).json({ error: 'Failed to add skill' });
+    console.error("Error getting connection:", err);
+    res.status(500).json({ error: "Unable to get a database connection" });
   }
 });
-
 // Get all skills for a user
 router.get('/user/:userId', async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const [rows] = await db.query('SELECT googleId, email, profilePhoto FROM Has WHERE uid = ? JOIN Users ON uid=id;', [userId]);
+    const [rows] = await db.query('SELECT googleId, email, profilePhoto FROM Users JOIN Has ON Users.id = Has.uid WHERE Has.uid = ?', [userId]);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch skills' });

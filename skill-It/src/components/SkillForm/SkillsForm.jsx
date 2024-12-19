@@ -8,17 +8,18 @@ const SkillsForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const user=JSON.parse(localStorage.getItem("user"));
+    const id=user.id;
     // Prepare the data to send to the backend
     const data = {
-      googleId,
+      id: id,
       skills: skills.split(",").map(skill => skill.trim()), // Assuming skills are separated by commas
       experience: parseInt(experience, 10),
     };
 
     try {
       // Send data to backend server
-      const response = await fetch("https://your-backend-url.com/api/submitSkills", {
+      const response = await fetch("http://localhost:5000/skills/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
