@@ -6,13 +6,35 @@ const SkillsForm = () => {
   const [skills, setSkills] = useState("");
   const [experience, setExperience] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Skills:", skills);
-    console.log("Experience:", experience);
-  };
 
+    // Prepare the data to send to the backend
+    const data = {
+      googleId,
+      skills: skills.split(",").map(skill => skill.trim()), // Assuming skills are separated by commas
+      experience: parseInt(experience, 10),
+    };
+
+    try {
+      // Send data to backend server
+      const response = await fetch("https://your-backend-url.com/api/submitSkills", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+    if (response.ok) {
+        console.log("Skills submitted successfully!");
+        // Optionally, you can display a success message or redirect
+      } else {
+        console.error("Failed to submit skills");
+      }
+    } catch (error) {
+      console.error("Error submitting skills:", error);
+    }
+  };
   return (
     <div className={styles.formContainer}>
       <Header />
@@ -41,7 +63,7 @@ const SkillsForm = () => {
           placeholder="e.g., 2"
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
     </div>
   );

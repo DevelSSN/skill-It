@@ -19,11 +19,11 @@ router.post('/add', async (req, res) => {
 });
 
 // Get all skills for a user
-router.get('/:userId', async (req, res) => {
+router.get('/user/:userId', async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const [rows] = await db.query('SELECT * FROM Skills WHERE userId = ?', [userId]);
+    const [rows] = await db.query('SELECT googleId, email, profilePhoto FROM Has WHERE uid = ? JOIN Users ON uid=id;', [userId]);
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch skills' });
