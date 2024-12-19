@@ -5,7 +5,7 @@ import Header from "../Header/Header";
 const SkillsForm = () => {
   const [skills, setSkills] = useState("");
   const [experience, setExperience] = useState("");
-
+  const [rate, setRate] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user=JSON.parse(localStorage.getItem("user"));
@@ -15,6 +15,7 @@ const SkillsForm = () => {
       id: id,
       skills: skills.split(",").map(skill => skill.trim()), // Assuming skills are separated by commas
       experience: parseInt(experience, 10),
+      rate: parseInt(rate, 10)
     };
 
     try {
@@ -63,7 +64,15 @@ const SkillsForm = () => {
           onChange={(e) => setExperience(e.target.value)}
           placeholder="e.g., 2"
         />
-
+        <label htmlFor="rate">Rate:</label>
+        <input
+          type="number"
+          id="rate"
+          name="rate"
+          value={rate}
+          onChange={(e) => setRate(e.target.value)}
+          placeholder="e.g., 250"
+        />
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
     </div>

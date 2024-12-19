@@ -56,9 +56,75 @@ app.get("/search", (req, res) => {
 
 app.get("/users", async(req,res) =>{
   try {
-    const [users] = await db.query('SELECT id, name, email FROM Users');
+    const query = `
+    SELECT 
+    U.id AS user_id, 
+    U.name AS user_name, 
+    U.email AS user_email, 
+    U.profilePhoto as user_photo,
+    GROUP_CONCAT(DISTINCT S.skillName ORDER BY S.skillName ASC) AS skills,  
+    GROUP_CONCAT(H.rate ORDER BY S.skillName ASC) AS skill_rates
+FROM 
+    Users U
+LEFT JOIN 
+    Has H ON U.id = H.uid
+LEFT JOIN 
+    Skills S ON H.sid = S.id
+GROUP BY 
+    U.id, U.name, U.email
+ORDER BY 
+    U.name ASC;  
+
+  `;
+    const [users] = await db.query(query);
     res.json(users);
   } catch (err) {
     res.status(500).send("Error fetching users.");
+  }
+});
+
+app.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Query to get user details along with associated skills and rates
+    const [userRows] = await db.query(
+      `
+      SELECT 
+        Users.id AS userId,
+        Users.googleId,
+        Users.email,
+        Users.profilePhoto,
+        Users.name,
+        GROUP_CONCAT(Skills.skillName ORDER BY Skills.skillName ASC) AS skills,  -- Get all skills as a comma-separated list
+        GROUP_CONCAT(Has.rate ORDER BY Skills.skillName ASC) AS skillRates  -- Get all rates for skills
+      FROM Users
+      JOIN Has ON Users.id = Has.uid
+      JOIN Skills ON Skills.id = Has.sid
+      WHERE Users.id = ?
+      GROUP BY Users.id
+      `,
+      [userId]
+    );
+
+    // Check if user was found
+    if (userRows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Send user data back to the frontend
+    const user = userRows[0];
+    res.json({
+      userId: user.userId,
+      googleId: user.googleId,
+      email: user.email,
+      profilePhoto: user.profilePhoto,
+      name: user.name,
+      skills: user.skills ? user.skills.split(',') : [],  // Split skills string into array
+      skillRates: user.skillRates ? user.skillRates.split(',') : [],  // Split rates string into array
+    });
+  } catch (err) {
+    console.error('Error fetching user data:', err);
+    res.status(500).json({ error: 'Failed to fetch user details' });
   }
 });

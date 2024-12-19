@@ -1,19 +1,20 @@
 .googleLoginContainer {
     text-align: center;
-    width: fit-content;
+    /* width: fit-content; */
 }
 
-
-
 .navItem {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-decoration: none;
     color: white;
     font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 20px;
+    max-width: 200px;
+    border-radius: 10px;
     background: linear-gradient(to right, magenta, purple);
-}
-
-.navItem:hover {
-    background: linear-gradient(to right, purple, magenta);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 20px;
+    text-align: center;
 }

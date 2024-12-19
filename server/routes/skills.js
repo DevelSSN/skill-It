@@ -5,10 +5,10 @@ const router = express.Router();
 
 // Add a new skill
 router.post('/add', async (req, res) => {
-  const { id, skills, experience } = req.body;
+  const { id, skills, experience, rate} = req.body;
 
   // Ensure id and skills are provided
-  if (!id || !skills || !experience) {
+  if (!id || !skills || !experience || !rate) {
     return res.status(400).json({ error: "User ID, skills, and experience are required." });
   }
 
@@ -42,8 +42,8 @@ router.post('/add', async (req, res) => {
 
         // Insert the user-skill relationship into the Has table with experience
         await connection.query(
-          "INSERT INTO Has (uid, sid, proficiencyLevel) VALUES (?, ?, ?)",
-          [id, skillId, experience]
+          "INSERT INTO Has (uid, sid, proficiencyLevel, rate) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE rate=VALUES(rate)",
+          [id, skillId, experience, rate]
         );
       }
 
@@ -66,16 +66,16 @@ router.post('/add', async (req, res) => {
   }
 });
 // Get all skills for a user
-router.get('/user/:userId', async (req, res) => {
-  const { userId } = req.params;
+// router.get('/user/:userId', async (req, res) => {
+//   const { userId } = req.params;
 
-  try {
-    const [rows] = await db.query('SELECT googleId, email, profilePhoto FROM Users JOIN Has ON Users.id = Has.uid WHERE Has.uid = ?', [userId]);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch skills' });
-  }
-});
+//   try {
+//     const [rows] = await db.query('SELECT googleId, email, profilePhoto FROM Users JOIN Has ON Users.id = Has.uid WHERE Has.uid = ?', [userId]);
+//     res.json(rows);
+//   } catch (err) {
+//     res.status(500).json({ error: 'Failed to fetch skills' });
+//   }
+// });
 
 router.post("/addUser", (req, res) => {
   const profile = req.body.profile;

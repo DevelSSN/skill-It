@@ -62,13 +62,7 @@ const GoogleLoginComponent = () => {
       >
         {isLoggedIn ? "Logout" : "Login with Google"}
       </button>
-      {/* {isLoggedIn && user && ( */}
-         {/* // <div> */}
-          {/* // <h2>Welcome, {user.name}</h2> */}
-          {/* // <p>Email: {user.email}</p> */}
-          {/* // <img src={user.picture} alt="Profile" /> */}
-        {/* // </div> */}
-      {/* )} */}
+
     </div>
   );
 };

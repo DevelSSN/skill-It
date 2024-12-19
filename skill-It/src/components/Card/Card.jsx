@@ -5,13 +5,12 @@ function Card(props) {
     <div className={styles.card}>
       <img
         className={styles.cardImg}
-        src="https://avatars.githubusercontent.com/u/140680675?v=4"
+        src={props.img}
         alt="Profile Pic"
       />
       <h2 className={styles.cardTitle}>Name: {props.name}</h2>
       <p className={styles.cardDesc}>
-        Age: {props.age}
-        <br />
+
         Rate: {props.rate}
         <br />
         Job: {props.job}
@@ -22,6 +21,7 @@ function Card(props) {
   );
 }
 Card.propTypes = {
+  img: PropTypes.string,
   name: PropTypes.string,
   age: PropTypes.number,
   phone: PropTypes.number,
