@@ -1,64 +1,125 @@
+/* Container for the entire profile page */
 .container {
     width: 100vw;
-    min-height: 100vb;
+    min-height: 100vh; /* Corrected 'vb' to 'vh' */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    background-color: #222;
+    background-color: #222; /* Dark background for the page */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white; /* Default text color */
+    box-sizing: border-box; /* Ensures padding is included in width/height */
 }
 
-.profileContainer{
-    margin-top:20px;
+/* Profile container section */
+.profileContainer {
+    text-align: center;
+    margin-top: 20px;
+    background-color: #333; /* Slightly lighter background for profile section */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 400px; /* Centers and limits profile section width */
+    width: 100%;
 }
 
-.info, .profilePic{
-    color: #fff;
-}
-
+/* Profile picture styling */
 .profilePic {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    border-radius: 50%; /* Makes the image circular */
     margin-bottom: 20px;
+    border: 2px solid #444; /* Adds a subtle border */
 }
 
+/* Name styling */
 .name {
     font-size: 24px;
     margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff; /* White text for the name */
 }
 
+/* Info text styling */
 .info {
     font-size: 16px;
     margin: 5px 0;
+    color: #ddd; /* Light gray for additional details */
 }
 
+/* Button container */
 .buttons {
     display: flex;
     justify-content: space-evenly;
     margin: 20px 0;
+    gap: 10px; /* Space between buttons */
+    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
 }
 
+/* General button styling */
 .emailButton,
 .callButton,
 .hireButton {
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    flex-grow: 0; /* Prevents buttons from stretching */
+    flex-shrink: 0; /* Prevents buttons from shrinking */
+    width: auto; /* Ensures button sizes adjust to their content */
+    font-size: 14px; /* Adjust button text size */
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth color transition on hover */
 }
 
+/* Email button styling */
 .emailButton {
-    background-color: #007bff;
+    background-color: #007bff; /* Blue color for email */
     color: white;
 }
 
+.emailButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Call button styling */
 .callButton {
-    background-color: #28a745;
+    background-color: #28a745; /* Green color for call */
     color: white;
 }
 
+.callButton:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+/* Hire button styling */
 .hireButton {
-    background-color: #ffc107;
+    background-color: #ffc107; /* Yellow for hire button */
     color: black;
     margin-top: 10px;
+}
+
+.hireButton:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profileContainer {
+        padding: 15px;
+    }
+
+    .buttons {
+        flex-direction: column; /* Stacks buttons on smaller screens */
+        align-items: center;
+    }
+
+    .emailButton,
+    .callButton,
+    .hireButton {
+        width: 100%; /* Full-width buttons for smaller screens */
+        margin-bottom: 10px;
+    }
 }
