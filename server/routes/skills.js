@@ -6,7 +6,7 @@ const router = express.Router();
 // Add a new skill
 router.post('/add', async (req, res) => {
   const { id, skills, experience, rate} = req.body;
-
+  console.log(id);
   // Ensure id and skills are provided
   if (!id || !skills || !experience || !rate) {
     return res.status(400).json({ error: "User ID, skills, and experience are required." });

@@ -8,13 +8,41 @@ const SkillsForm = () => {
   const [rate, setRate] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user=JSON.parse(localStorage.getItem("user"));
-    console.log(user);
- 
+    const userData = localStorage.getItem("user");
+    console.log(userData);
+
+    let id;
+
+// Check if the user data exists in localStorage
+    if (userData) {
+      id = userData;
+      try {
+        // Try to parse the user data (assume it's stored as a JSON string)
+        const user = JSON.parse(userData);
+
+        // Check if user is just an id (only one key, 'id')
+        if (user && Object.keys(user).length === 1 && user.id) {
+          id = user.id; // User contains only an id
+        }
+        // Check if user is an object containing an id and other data
+        else if (user && user.id) {
+          id = user.id; // User is a full object with an id
+        }
+        else {
+          console.error("User data is missing 'id' or is invalid.");
+        }
+      } catch (error) {
+        // If parsing fails, it might be a plain string or an invalid format
+        console.error("Error parsing user data:", error);
+        // Check if the userData is just a raw ID (not an object, but a string or number)
+      }
+    } else {
+      console.log("No user data found in localStorage.");
+    }
     // console.log(id);
     // Prepare the data to send to the backend
     const data = {
-      id: user,
+      id: id,
       skills: skills.split(",").map(skill => skill.trim()), // Assuming skills are separated by commas
       experience: parseInt(experience, 10),
       rate: parseInt(rate, 10)
