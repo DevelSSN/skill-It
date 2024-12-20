@@ -8,7 +8,7 @@ const QuestionComponent = () => {
       <Header />
       <h1>WHAT WOULD YOU LIKE TO DO?</h1>
       <div className={styles.actions}>
-        <a href="#" className={`${styles.btn} ${styles.apply}`}>
+        <a href="/apply" className={`${styles.btn} ${styles.apply}`}>
           Apply
         </a>
         <a href="/search" className={`${styles.btn} ${styles.hire}`}>

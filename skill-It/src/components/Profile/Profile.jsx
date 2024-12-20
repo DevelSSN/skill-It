@@ -44,11 +44,11 @@ const Profile = () => {
 
 
   const handleCall = () => {
-    window.location.href = `tel:${person.phone}`;
+    window.location.href = `tel:${userData.phone}`;
   };
 
   const handleEmail = () => {
-    window.location.href = `mailto:example@example.com`; // Replace with actual email
+    window.location.href = `mailto:${userData.email}`; // Replace with actual email
   };
 
   const handleConfirmHired = () => {

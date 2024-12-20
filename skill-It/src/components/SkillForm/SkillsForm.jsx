@@ -19,7 +19,6 @@ const SkillsForm = () => {
     };
 
     try {
-      // Send data to backend server
       const response = await fetch("http://localhost:5000/skills/add", {
         method: "POST",
         headers: {
@@ -27,7 +26,8 @@ const SkillsForm = () => {
         },
         body: JSON.stringify(data),
       });
-    if (response.ok) {
+    
+      if (response.ok) {
         console.log("Skills submitted successfully!");
         // Optionally, you can display a success message or redirect
       } else {
@@ -36,6 +36,7 @@ const SkillsForm = () => {
     } catch (error) {
       console.error("Error submitting skills:", error);
     }
+    
   };
   return (
     <div className={styles.formContainer}>
