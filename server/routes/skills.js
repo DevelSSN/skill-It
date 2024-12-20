@@ -42,7 +42,7 @@ router.post('/add', async (req, res) => {
 
         // Insert the user-skill relationship into the Has table with experience
         await connection.query(
-          "INSERT INTO Has (uid, sid, proficiencyLevel, rate) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE rate=VALUES(rate)",
+          "INSERT INTO Has (uid, sid, proficiencyLevel, rate) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE rate=VALUES(rate);",
           [id, skillId, experience, rate]
         );
       }
