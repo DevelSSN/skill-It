@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Profile? _profile;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -21,18 +22,15 @@ class _HomePageState extends State<HomePage> {
   // Handle the click on the Google logo
   void _handleLogoClick() async {
     if (_profile?.name == null || _profile?.name == '') {
-      // If not signed in, trigger Google Sign-In
       final result = await _profile?.signIn();
       if (result?.isNotEmpty ?? false) {
         setState(() {});
       }
     } else {
-      // If signed in, navigate to edit profile or logout
       _showProfileOptions();
     }
   }
 
-  // Show options for editing the profile or logging out
   void _showProfileOptions() {
     showDialog(
       context: context,
@@ -47,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 title: Text('Edit Profile'),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigate to the profile editing page here
+                  // TODO: Navigate to the profile editing page
                 },
               ),
               ListTile(
@@ -73,6 +71,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _getSelectedPage() {
+    if (_profile?.name == null || _profile?.name == '') {
+      return Center(
+        child: ElevatedButton(
+          onPressed: _handleLogoClick,
+          child: Text('Sign in with Google'),
+        ),
+      );
+    }
+
+    // Example placeholder content for each tab
+    switch (_selectedIndex) {
+      case 0:
+        return ProfileScreen(user: _profile!);
+      case 1:
+        return Center(child: Text("🔍 Search"));
+      case 2:
+        return Center(child: Text("📝 Apply"));
+      case 3:
+        return Center(child: Text("📄 Details"));
+      default:
+        return ProfileScreen(user: _profile!);
+    }
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      print(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,24 +116,38 @@ class _HomePageState extends State<HomePage> {
               child: CircleAvatar(
                 backgroundImage:
                     _profile?.name != null && _profile?.name != ''
-                        ? NetworkImage(
-                          _profile!.email,
-                        ) // You can replace it with the user's profile picture
+                        ? NetworkImage(_profile!.email)
                         : AssetImage('images/Person_Logo.png') as ImageProvider,
               ),
             ),
           ),
         ],
       ),
-      body:
-          _profile?.name == null || _profile?.name == ''
-              ? Center(
-                child: ElevatedButton(
-                  onPressed: _handleLogoClick,
-                  child: Text('Sign in with Google'),
-                ),
-              )
-              : ProfileScreen(user: _profile!),
+      body: _getSelectedPage(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Text("🏠", style: TextStyle(fontSize: 20)),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Text("🔍", style: TextStyle(fontSize: 20)),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Text("📝", style: TextStyle(fontSize: 20)),
+            label: 'Apply',
+          ),
+          BottomNavigationBarItem(
+            icon: Text("📄", style: TextStyle(fontSize: 20)),
+            label: 'Details',
+          ),
+        ],
+      ),
     );
   }
 }
@@ -120,12 +164,7 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(
-              user.email,
-            ), // Profile picture URL here
-          ),
+          CircleAvatar(radius: 50, backgroundImage: NetworkImage(user.email)),
           SizedBox(height: 16),
           Text(
             'Name: ${user.name}',

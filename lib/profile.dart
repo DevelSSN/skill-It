@@ -6,6 +6,7 @@ class Profile {
   late String email;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email', 'profile', 'openid'],
+    clientId: '',
   );
   Map<String, int> skills = <String, int>{};
 
