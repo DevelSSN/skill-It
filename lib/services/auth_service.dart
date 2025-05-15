@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:skillIt/main.dart';
+import 'package:skillIt/services/api_service.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: ['email', 'profile', 'openid'],
@@ -23,5 +24,9 @@ class AuthService {
     );
 
     return jsonDecode(response.body);
+  }
+
+  Future<void> signOut() async {
+    await _googleSignIn.signOut();
   }
 }

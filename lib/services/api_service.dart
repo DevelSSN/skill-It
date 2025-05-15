@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
-import '../main.dart';
+
+const String baseUrl = "https://localhost:8080";
 
 class ApiService {
-  static Future<UserModel?> fetchUser(String email) async {
-    final res = await http.get(Uri.parse('$baseUrl/api/user/email/$email'));
+  static Future<UserModel?> fetchUser(String id) async {
+    final res = await http.get(Uri.parse('$baseUrl/api/user/$id'));
     if (res.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(res.body));
     }
