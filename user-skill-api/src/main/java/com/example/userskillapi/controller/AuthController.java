@@ -32,7 +32,7 @@ public class AuthController {
 		User user = userRepository.findByEmail(email).orElseGet(User::new);
 		user.setEmail(email);
 		user.setName(name);
-		user.setProfilePicture(picture);
+		user.setProfilePhoto(picture);
 
 		userRepository.save(user);
 
