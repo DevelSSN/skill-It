@@ -6,7 +6,8 @@ import 'package:skillIt/services/api_service.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
   scopes: ['email', 'profile', 'openid'],
-  clientId: '',
+  clientId:
+      '71081266017-4500lhd48us31ha9h20q3ucfejut9102.apps.googleusercontent.com',
 );
 
 class AuthService {
