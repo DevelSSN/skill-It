@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:skillIt/models/user_model.dart';
-import 'package:skillIt/screens/contact_edit_screen.dart';
-import 'package:skillIt/screens/user_detail_screen.dart';
+import 'models/user_model.dart';
+import 'screens/contact_edit_screen.dart';
 import 'screens/hire_screen.dart';
 import 'screens/apply_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/main_navigation_screen.dart';
+import 'screens/user_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,4 +1,4 @@
-package com.example.proj
+package com.skills.skillit
 
 import io.flutter.embedding.android.FlutterActivity
 

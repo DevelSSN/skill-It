@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:skillIt/screens/apply_screen.dart';
-import 'package:skillIt/screens/login_screen.dart';
+import 'apply_screen.dart';
 import 'hire_screen.dart';
+import 'login_screen.dart';
 import 'profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {

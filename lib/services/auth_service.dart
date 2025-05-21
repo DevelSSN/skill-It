@@ -1,33 +1,49 @@
-import 'dart:convert';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:skillIt/main.dart';
-import 'package:skillIt/services/api_service.dart';
+import 'dart:convert';
 
-final GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: ['email', 'profile', 'openid'],
-  clientId:
-      '71081266017-4500lhd48us31ha9h20q3ucfejut9102.apps.googleusercontent.com',
-);
+import 'api_service.dart';
 
 class AuthService {
-  static Future<Map<String, dynamic>> signInWithGoogle() async {
-    final GoogleSignInAccount? account = await _googleSignIn.signIn();
-    if (account == null) return {};
-
-    final GoogleSignInAuthentication auth = await account.authentication;
-    final idToken = auth.idToken;
-
+  static Future<Map<String, dynamic>> signInWithEmailPassword(
+    String email,
+    String password,
+  ) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/api/auth/google'),
+      Uri.parse('$baseUrl/auth/login'), // Assuming POST endpoint for login
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'idToken': idToken}),
+      body: json.encode({'email': email, 'password': password}),
     );
 
-    return jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      // Assuming the backend returns a JSON object with 'jwt' and 'user'
+      return json.decode(response.body);
+    } else {
+      // Handle error response
+      throw Exception('Failed to sign in: ${response.statusCode}');
+    }
   }
 
-  Future<void> signOut() async {
-    await _googleSignIn.signOut();
+  static Future<void> signUp(
+    String name,
+    String email,
+    String password,
+    String profilePhoto,
+    List<Map<String, String?>> skills,
+  ) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/auth/signup'), // Assuming POST endpoint for sign-up
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'name': name,
+        'email': email,
+        'password': password,
+        'profilePhoto': profilePhoto,
+        'skills': skills,
+      }),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to sign up: ${response.statusCode}');
+    }
   }
 }
