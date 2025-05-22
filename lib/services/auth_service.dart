@@ -31,7 +31,9 @@ class AuthService {
     List<Map<String, String?>> skills,
   ) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/signup'), // Assuming POST endpoint for sign-up
+      Uri.parse(
+        '$baseUrl/api/auth/signup',
+      ), // Assuming POST endpoint for sign-up
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'name': name,
