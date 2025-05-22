@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUserWithSkills(@PathVariable Long id) {
