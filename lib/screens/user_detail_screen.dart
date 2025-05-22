@@ -51,7 +51,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(
-                  user.profilePictureUrl ?? 'https://via.placeholder.com/150',
+                  user.profilePictureUrl ?? 'https://placehold.co/150x150/png',
                 ),
                 radius: 50,
               ),

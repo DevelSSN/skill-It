@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillit/screens/login_screen.dart';
 import 'models/user_model.dart';
 import 'screens/contact_edit_screen.dart';
 import 'screens/hire_screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => ProfileScreen(),
         '/landing': (context) => const LandingScreen(),
         '/contact-edit': (context) => const ContactEditScreen(),
+        '/login': (context) => LoginScreen(),
         // Add more routes as needed
       },
       // If unknown route, fallback to main or splash

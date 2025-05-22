@@ -12,7 +12,7 @@ class UserListTile extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(
-          user.profilePictureUrl ?? 'https://via.placeholder.com/150',
+          user.profilePictureUrl ?? 'https://placehold.co/150x150/png',
         ),
       ),
       title: Text(user.name),

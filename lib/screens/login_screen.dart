@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'signup_screen.dart'; // Import the SignUpScreen
+import 'package:shared_preferences/shared_preferences.dart';
+import 'signup_screen.dart';
 import '../services/auth_service.dart';
 import 'profile_screen.dart';
 
@@ -29,30 +30,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _loading = true;
-      _errorMessage = ''; // Reset error message
+      _errorMessage = '';
     });
 
     try {
-      // Sending POST request to the Spring Boot backend for authentication
+      // Call backend to authenticate
       final data = await AuthService.signInWithEmailPassword(email, password);
 
-      final jwt = data['jwt']; // Assuming your backend returns a JWT token
-      final user = data['user']; // Assuming user details are returned
+      final jwt = data['jwt']; // Correct variable name
+      final user = data['user'];
 
-      // Optionally, store JWT (e.g., using shared_preferences)
+      // Store JWT locally
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('jwt', jwt);
 
-      // Navigate to ProfileScreen
+      // Navigate to profile screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder:
-              (_) => ProfileScreen(
-                name: user['name'],
-                email: user['email'],
-                photoUrl:
-                    user['profilePictureUrl'] ?? '', // Ensure it's not null
-              ),
-        ),
+        MaterialPageRoute(builder: (_) => ProfileScreen()),
       );
     } catch (e) {
       print('Sign-in error: $e');
@@ -103,10 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
                     _errorMessage,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
-              // Link to Sign Up Page
               TextButton(
                 onPressed: () {
                   Navigator.push(
