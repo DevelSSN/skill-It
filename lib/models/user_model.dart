@@ -4,7 +4,7 @@ class UserModel {
   final String contact;
   final String email;
   final List<String> skills;
-  final String? profilePictureUrl;
+  final String profilePictureUrl;
 
   const UserModel({
     required this.id,
@@ -12,19 +12,28 @@ class UserModel {
     required this.contact,
     required this.email,
     required this.skills,
-    this.profilePictureUrl,
+    required this.profilePictureUrl,
   });
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    List<String> skillNames = [];
+    if (json['skills'] != null) {
+      skillNames =
+          (json['skills'] as List)
+              .map((skillObj) => skillObj['skill']?.toString() ?? '')
+              .toList();
+    }
+
     return UserModel(
-      id: json['id'] ?? '',
+      id: json['id'].toString(),
       name: json['name'] ?? '',
       contact: json['contact'] ?? '',
       email: json['email'] ?? '',
-      skills: List<String>.from(json['skills'] ?? []),
-      profilePictureUrl: json['profilePictureUrl'] ?? '',
+      skills: skillNames,
+      profilePictureUrl:
+          json['profilePictureUrl'] ?? 'https://placehold.co/150x150/png',
     );
   }
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,

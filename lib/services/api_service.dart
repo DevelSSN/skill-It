@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
-const String baseUrl = "https://10bi2miawl61.share.zrok.io";
+const String baseUrl = "http://localhost:8080";
 
 class ApiService {
   static Future<UserModel?> fetchUser(String id) async {

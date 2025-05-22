@@ -66,7 +66,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text(
-          'Welcome to Hire & Apply',
+          'Welcome to Skill It',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),

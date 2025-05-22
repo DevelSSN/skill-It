@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skillit/screens/main_navigation_screen.dart';
 import 'signup_screen.dart';
 import '../services/auth_service.dart';
 import 'profile_screen.dart';
@@ -43,11 +46,15 @@ class _LoginScreenState extends State<LoginScreen> {
       // Store JWT locally
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwt', jwt);
-
+      await prefs.setString('user', jsonEncode(user));
       // Navigate to profile screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => ProfileScreen()),
+        MaterialPageRoute(
+          builder:
+              (context) =>
+                  MainNavigationScreen(initialIndex: 0), // 0 = Profile tab
+        ),
       );
     } catch (e) {
       print('Sign-in error: $e');

@@ -5,14 +5,16 @@ import 'login_screen.dart';
 import 'profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  final int initialIndex;
+  const MainNavigationScreen({Key? key, this.initialIndex = 0})
+    : super(key: key);
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   static final List<Widget> _screens = <Widget>[
     const ProfileScreen(),
@@ -20,6 +22,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const ApplyScreen(),
     const LoginScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   void _onItemTapped(int index) => setState(() => _selectedIndex = index);
 

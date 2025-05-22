@@ -9,7 +9,7 @@ class AuthService {
     String password,
   ) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/login'), // Assuming POST endpoint for login
+      Uri.parse('$baseUrl/api/auth/login'), // Assuming POST endpoint for login
       headers: {'Content-Type': 'application/json'},
       body: json.encode({'email': email, 'password': password}),
     );
@@ -23,11 +23,12 @@ class AuthService {
     }
   }
 
-  static Future<void> signUp(
+  static Future<String> signUp(
     String name,
     String email,
     String password,
     String profilePhoto,
+    String phoneNumber,
     List<Map<String, String?>> skills,
   ) async {
     final response = await http.post(
@@ -39,13 +40,23 @@ class AuthService {
         'name': name,
         'email': email,
         'password': password,
+        'phoneNumber': phoneNumber,
         'profilePhoto': profilePhoto,
         'skills': skills,
       }),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to sign up: ${response.statusCode}');
+    if (response.statusCode == 201) {
+      final body = jsonDecode(response.body);
+      final token = body['token'];
+      if (token == null) {
+        throw Exception("JWT token not found in response");
+      }
+      return token;
+    } else if (response.statusCode == 409) {
+      throw Exception("Email already in use");
+    } else {
+      throw Exception("Failed to sign up (${response.statusCode})");
     }
   }
 }

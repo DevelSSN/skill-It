@@ -11,6 +11,7 @@ class LandingScreen extends StatelessWidget {
     contact: '',
     email: 'contact@skillit.app',
     skills: [],
+    profilePictureUrl: '',
   );
 
   @override

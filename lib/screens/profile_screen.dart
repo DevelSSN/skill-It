@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skillit/screens/main_navigation_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,8 +12,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final storage = const FlutterSecureStorage();
-
   String? name;
   String? email;
   String? photoUrl;
@@ -26,8 +25,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _loadProfile() async {
-    final token = await storage.read(key: 'jwt');
-    if (token == null) {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final userJson = prefs.getString('user');
+
+    if (token == null || userJson == null) {
       setState(() {
         isLoggedIn = false;
         isLoading = false;
@@ -35,21 +37,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return;
     }
 
-    final response = await http.get(
-      Uri.parse('http://<YOUR_BACKEND_URL>/api/profile'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+    try {
+      final userMap = jsonDecode(userJson);
       setState(() {
-        name = data['name'];
-        email = data['email'];
-        photoUrl = data['profilePhoto'] ?? 'https://placehold.co/150x150/png';
+        name = userMap['name'];
+        email = userMap['email'];
+        photoUrl =
+            userMap['profilePhoto'] ?? 'https://placehold.co/150x150/png';
         isLoggedIn = true;
         isLoading = false;
       });
-    } else {
+    } catch (e) {
       setState(() {
         isLoggedIn = false;
         isLoading = false;
@@ -62,14 +60,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _logout() async {
-    await storage.delete(key: 'jwt');
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('jwt');
+    prefs.remove('user');
     setState(() {
       isLoggedIn = false;
     });
   }
 
   void _goToLogin() {
-    Navigator.pushNamed(context, '/login');
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => MainNavigationScreen(initialIndex: 3), // 3 = Login tab
+      ),
+    );
   }
 
   @override
