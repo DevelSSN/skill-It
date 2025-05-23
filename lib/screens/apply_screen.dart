@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillit/services/api_service.dart';
 
+import 'main_navigation_screen.dart';
+
 class ApplyScreen extends StatefulWidget {
   const ApplyScreen({super.key});
 
@@ -84,7 +86,12 @@ class _ApplyScreenState extends State<ApplyScreen> {
       );
 
       if (response.statusCode == 200) {
-        Navigator.of(context).pushNamed('/profile_screen');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MainNavigationScreen(initialIndex: 0),
+          ),
+        ); // 0 = Profile tab
       } else {
         _showError('Failed to submit application. Please try again.');
       }

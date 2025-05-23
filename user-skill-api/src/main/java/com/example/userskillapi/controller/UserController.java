@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ import com.example.userskillapi.repository.SkillRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 @RequestMapping("/api/user")
@@ -46,71 +49,58 @@ public class UserController {
 		return userRepository.findDistinctUsersWithSkills();
 	}
 
-@PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
-public ResponseEntity<?> submitApplication(@RequestBody ApplyRequestDTO applyRequest) {
-    if (applyRequest.getSkills() == null || applyRequest.getSkills().isEmpty()) {
-        return ResponseEntity.badRequest().body("Skills list cannot be empty");
-    }
+	@PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> submitApplication(@RequestBody ApplyRequestDTO applyRequest) {
+		if (applyRequest.getSkills() == null || applyRequest.getSkills().isEmpty()) {
+			return ResponseEntity.badRequest().body("Skills list cannot be empty");
+		}
 
-    String jwt = applyRequest.getJwt();
-    if (jwt == null || jwt.isBlank()) {
-        return ResponseEntity.status(401).body("JWT is missing");
-    }
+		String jwt = applyRequest.getJwt();
+		if (jwt == null || jwt.isBlank()) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT is missing");
+		}
 
-    String userId;
-    try {
-        userId = jwtService.getUserIdFromToken(jwt);
-    } catch (Exception e) {
-        return ResponseEntity.status(401).body("Invalid JWT token");
-    }
+		String email;
+		try {
+			email = jwtService.getUserEmailFromToken(jwt); // Use `getEmailFromToken()` instead of `getUserIdFromToken()`
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid JWT token");
+		}
 
-    User user = userRepository.findById(Long.parseLong(userId))
-        .orElseThrow(() -> new RuntimeException("User not found"));
+		User user = userRepository.findByEmail(email)
+			.orElseThrow(() -> new RuntimeException("User not found"));
 
-    // Delete old skills for the user
-    userSkillRepository.deleteByUserId(user.getUserId());
+		// Delete old skills by email
+		userSkillRepository.deleteByUserEmail(email);
 
-    for (SkillDTO skillDto : applyRequest.getSkills()) {
-        Skill skill = skillDto.getSkill();
+		// Save new skills
+		for (FlatSkillDTO dto : applyRequest.getSkills()) {
+			Skill skill = skillRepository.findBySkillName(dto.getSkill())
+				.orElseGet(() -> skillRepository.save(
+							Skill.builder().skillName(dto.getSkill()).build()
+							));
 
-        // Fetch existing skill entity by name or ID, or create new
-        Skill persistedSkill = null;
+			UserSkill userSkill = new UserSkill();
+			userSkill.setUser(user);
+			userSkill.setSkill(skill);
+			userSkill.setProficiency(dto.getYears());
+			userSkillRepository.save(userSkill);
+		}
 
-        if (skill.getSkillId() != null) {
-            persistedSkill = skillRepository.findById(skill.getSkillId())
-                .orElseThrow(() -> new RuntimeException("Skill not found with id: " + skill.getSkillId()));
-        } else if (skill.getSkillName() != null && !skill.getSkillName().isBlank()) {
-            persistedSkill = skillRepository.findBySkillName(skill.getSkillName())
-                .orElseGet(() -> {
-                    // Create and save new skill if not found
-                    Skill newSkill = new Skill();
-                    newSkill.setSkillName(skill.getSkillName());
-                    return skillRepository.save(newSkill);
-                });
-        } else {
-            return ResponseEntity.badRequest().body("Skill information incomplete");
-        }
-
-        UserSkill userSkill = new UserSkill();
-        userSkill.setUser(user);
-        userSkill.setSkill(persistedSkill);
-        userSkill.setProficiency(skillDto.getProficiency());
-
-        userSkillRepository.save(userSkill);
-
-        System.out.println("Saved skill for user " + userId + ": " + persistedSkill.getSkillName() +
-            " (" + skillDto.getProficiency() + ")");
-    }
-
-    return ResponseEntity.ok("Application submitted successfully");
-}
+		return ResponseEntity.ok("Application submitted successfully");
+	}
 }
 
 @Getter
+@Setter
 class ApplyRequestDTO {
 	private String jwt;
-	private List<SkillDTO> skills;
+	private List<FlatSkillDTO> skills;
+}
 
-	public List<SkillDTO> getSkills() { return skills; }
-	public void setSkills(List<SkillDTO> skills) { this.skills = skills; }
+@Getter
+@Setter
+class FlatSkillDTO {
+	private String skill;
+	private int years;
 }

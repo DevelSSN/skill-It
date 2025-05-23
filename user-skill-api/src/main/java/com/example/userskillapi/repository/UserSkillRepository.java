@@ -11,11 +11,17 @@ import java.util.List;
 
 public interface UserSkillRepository extends JpaRepository<UserSkill, UserSkillId> {
 
-    @Query("SELECT us FROM UserSkill us WHERE us.user.id = :userId")
-    List<UserSkill> findByUserId(Long userId);
+	@Query("SELECT us FROM UserSkill us WHERE us.user.id = :userId")
+	List<UserSkill> findByUserId(Long userId);
 
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM UserSkill us WHERE us.user.id = :userId")
-    void deleteByUserId(Long userId);
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM UserSkill us WHERE us.user.id = :userId")
+	void deleteByUserId(Long userId);
+
+
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM UserSkill us WHERE us.user.email = :email")
+	void deleteByUserEmail(String email);
 }

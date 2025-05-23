@@ -1,36 +1,35 @@
 package com.example.userskillapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
+    private String name;
 
-	private String name;
+    @Column(unique = true, nullable = false)
+    private String email;
 
-	private String password;
+    private String password;
 
-	private String phoneNumber;
+    private String phoneNumber;
 
-	@Column(unique = true)
-	private String email;
+    private String profilePhoto;
 
-	private String profilePhoto;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<UserSkill> skills;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  // Forward part of reference (serialize this side)
+    private List<UserSkill> skills;
 }

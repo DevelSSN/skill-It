@@ -1,28 +1,28 @@
 package com.example.userskillapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name = "user_skill")
+@IdClass(UserSkillId.class)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@IdClass(UserSkillId.class)
 public class UserSkill {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-	@JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "skill_id")
-	@JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 
     private int proficiency;

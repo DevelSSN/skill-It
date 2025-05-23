@@ -10,6 +10,9 @@ import com.example.userskillapi.repository.SkillRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +68,7 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
 		}
 
-		// Create user without skills first
+		// Create user entity without skills first
 		User user = User.builder()
 			.name(signUpRequest.getName())
 			.email(signUpRequest.getEmail())
@@ -74,13 +77,13 @@ public class AuthController {
 			.profilePhoto(signUpRequest.getProfilePhoto())
 			.build();
 
-		// Map skill DTOs to UserSkill entities
+		// Map SkillDTO list to UserSkill entities, linking Skill entities by skill name
 		List<UserSkill> userSkills = signUpRequest.getSkills().stream()
 			.map(skillDto -> {
-				Skill skill = skillRepository.findBySkillName(skillDto.getSkill().getSkillName())
+				Skill skill = skillRepository.findBySkillName(skillDto.getSkill())
 					.orElseGet(() -> skillRepository.save(
 								Skill.builder()
-								.skillName(skillDto.getSkill().getSkillName())
+								.skillName(skillDto.getSkill())
 								.build()
 								));
 
@@ -92,13 +95,13 @@ public class AuthController {
 			})
 		.toList();
 
-		// Set skills to user
+		// Set skills to user (assuming cascade save)
 		user.setSkills(userSkills);
 
-		// Save user (with cascade, UserSkills will be saved too)
+		// Save user and cascade userSkills
 		userRepository.save(user);
 
-		String jwt = jwtService.generateToken(user); // <-- your service that creates token
+		String jwt = jwtService.generateToken(user);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonMap("token", jwt));
 	}
@@ -110,24 +113,22 @@ class LoginRequest {
 	private String password;
 }
 
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 class SignUpRequest {
 	private String name;
 	private String email;
 	private String password;
-	private String phoneNumber;
 	private String profilePhoto;
-	private List<SkillDTO> skills;
-
-	@Override
-	public String toString()
-	{ return "["+name+","+email+","+password+","+phoneNumber+","+profilePhoto+"]";}
+	private String phoneNumber;
+	private List<SkillDTO> skills;  // Uses the fixed SkillDTO
 }
 
-@Getter
-@Setter
-class SkillDTO
-{
-	private Skill skill;
-	private int proficiency;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class SkillDTO {
+	private String skill;         // Just the skill name, not Skill object
+	private int proficiency;      // Years of experience
 }
