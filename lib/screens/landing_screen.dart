@@ -36,11 +36,7 @@ class LandingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.check_circle_outline,
-                size: 80,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              Image.asset("assets/logo.png"),
               const SizedBox(height: 24),
               Text(message, style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 16),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skillit/services/api_service.dart';
-
 import 'main_navigation_screen.dart';
 
 class ApplyScreen extends StatefulWidget {
@@ -49,7 +48,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
   }
 
   Future<void> _submitApplication() async {
-    final skills = <Map<String, dynamic>>[];
+    final List<Map<String, dynamic>> skillEntries = [];
 
     for (var pair in _skillControllers) {
       final skill = pair['skill']?.text.trim() ?? '';
@@ -62,21 +61,26 @@ class _ApplyScreenState extends State<ApplyScreen> {
         _showError('Years of proficiency must be a valid number.');
         return;
       }
-      skills.add({'skill': skill, 'years': years});
+
+      skillEntries.add({'skill': skill, 'years': years});
     }
 
-    if (skills.isEmpty) {
+    if (skillEntries.isEmpty) {
       _showError('Please add at least one skill with years of proficiency.');
       return;
     }
 
-    final jwt = (await SharedPreferences.getInstance()).getString('jwt');
+    final prefs = await SharedPreferences.getInstance();
+    final jwt = prefs.getString('jwt');
     if (jwt == null || jwt.isEmpty) {
       _showError('User not authenticated.');
       return;
     }
 
-    final payload = {'skills': skills, 'jwt': jwt};
+    final payload = {
+      'skills': skillEntries, // Could be adapted to UserModel.skills if needed
+      'jwt': jwt,
+    };
 
     try {
       final response = await http.post(
@@ -91,7 +95,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
           MaterialPageRoute(
             builder: (context) => MainNavigationScreen(initialIndex: 0),
           ),
-        ); // 0 = Profile tab
+        );
       } else {
         _showError('Failed to submit application. Please try again.');
       }

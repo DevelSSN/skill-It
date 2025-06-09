@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:skillit/screens/user_detail_screen.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:skillit/services/api_service.dart';
 import '../models/user_model.dart';
@@ -36,12 +34,13 @@ class _HireScreenState extends State<HireScreen> {
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = jsonDecode(response.body);
 
-        // Convert JSON list to List<UserModel>
-        _allUsers =
+        // ✅ Ensure all items are converted to UserModel
+        final List<UserModel> fetchedUsers =
             jsonList.map((jsonItem) => UserModel.fromJson(jsonItem)).toList();
 
         setState(() {
-          _filteredUsers = _allUsers;
+          _allUsers = fetchedUsers;
+          _filteredUsers = fetchedUsers;
           _isLoading = false;
           _errorMessage = null;
         });
@@ -61,22 +60,24 @@ class _HireScreenState extends State<HireScreen> {
 
   void _filterUsers() {
     final query = _searchController.text.toLowerCase();
+    final List<UserModel> results;
+
     if (query.isEmpty) {
-      setState(() {
-        _filteredUsers = _allUsers;
-      });
+      results = _allUsers;
     } else {
-      setState(() {
-        _filteredUsers =
-            _allUsers.where((user) {
-              final nameMatches = user.name.toLowerCase().contains(query);
-              final skillMatches = user.skills.any(
-                (skill) => skill.toLowerCase().contains(query),
-              );
-              return nameMatches || skillMatches;
-            }).toList();
-      });
+      results =
+          _allUsers.where((user) {
+            final nameMatch = user.name.toLowerCase().contains(query);
+            final skillMatch = user.skills.any(
+              (skill) => skill.toLowerCase().contains(query),
+            );
+            return nameMatch || skillMatch;
+          }).toList();
     }
+
+    setState(() {
+      _filteredUsers = results;
+    });
   }
 
   @override
@@ -122,7 +123,7 @@ class _HireScreenState extends State<HireScreen> {
                     ? Center(
                       child: Text(
                         _errorMessage!,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       ),
                     )
                     : _filteredUsers.isEmpty

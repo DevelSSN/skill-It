@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/add_account.png
     - assets/google_logo.png
+    - assets/logo.png
 
 flutter_icons:
   android: true

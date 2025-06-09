@@ -5,7 +5,7 @@ import '../models/user_model.dart';
 class UserDetailScreen extends StatefulWidget {
   final UserModel user;
 
-  const UserDetailScreen({super.key, required this.user}); // This is okay
+  const UserDetailScreen({super.key, required this.user});
 
   @override
   State<UserDetailScreen> createState() => _UserDetailScreenState();
@@ -49,9 +49,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(
-                  user.profilePictureUrl ?? 'https://placehold.co/150x150/png',
-                ),
+                backgroundImage: NetworkImage(user.profilePictureUrl),
                 radius: 50,
               ),
               const SizedBox(height: 16),
@@ -60,15 +58,16 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
               Text(user.email, style: TextStyle(color: Colors.grey[700])),
               Text(user.contact, style: TextStyle(color: Colors.grey[700])),
               const SizedBox(height: 16),
-              Wrap(
-                spacing: 8.0,
-                runSpacing: 4.0,
-                alignment: WrapAlignment.center,
-                children:
-                    user.skills
-                        .map((skill) => Chip(label: Text(skill)))
-                        .toList(),
-              ),
+              if (user.skills.isNotEmpty)
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 4.0,
+                  alignment: WrapAlignment.center,
+                  children:
+                      user.skills
+                          .map((skill) => Chip(label: Text(skill)))
+                          .toList(),
+                ),
               const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

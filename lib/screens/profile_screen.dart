@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skillit/models/user_model.dart';
 import 'package:skillit/screens/main_navigation_screen.dart';
+import 'package:skillit/screens/contact_edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,9 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String? name;
-  String? email;
-  String? photoUrl;
+  UserModel? _user;
   bool isLoading = true;
   bool isLoggedIn = false;
 
@@ -39,11 +39,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     try {
       final userMap = jsonDecode(userJson);
+      final user = UserModel.fromJson(userMap);
+
       setState(() {
-        name = userMap['name'];
-        email = userMap['email'];
-        photoUrl =
-            userMap['profilePhoto'] ?? 'https://placehold.co/150x150/png';
+        _user = user;
         isLoggedIn = true;
         isLoading = false;
       });
@@ -55,16 +54,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  void _editContact() {
-    Navigator.pushNamed(context, '/contact-edit');
+  void _editContact() async {
+    if (_user == null) return;
+
+    final updatedUser = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ContactEditScreen(user: _user!)),
+    );
+
+    if (updatedUser is UserModel) {
+      setState(() {
+        _user = updatedUser;
+      });
+
+      // Optionally update stored user
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('user', jsonEncode(_user!.toJson()));
+    }
   }
 
   void _logout() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('jwt');
-    prefs.remove('user');
+    await prefs.remove('jwt');
+    await prefs.remove('user');
     setState(() {
       isLoggedIn = false;
+      _user = null;
     });
   }
 
@@ -72,8 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => MainNavigationScreen(initialIndex: 3), // 3 = Login tab
+        builder: (context) => MainNavigationScreen(initialIndex: 3),
       ),
     );
   }
@@ -90,23 +104,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child:
-              isLoggedIn
+              isLoggedIn && _user != null
                   ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage(photoUrl!),
+                        backgroundImage: NetworkImage(_user!.profilePictureUrl),
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        name ?? '',
+                        _user!.name,
                         style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        email ?? '',
+                        _user!.email,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),

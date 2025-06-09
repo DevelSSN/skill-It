@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import '../models/user_model.dart';
 
 class ContactEditScreen extends StatefulWidget {
-  const ContactEditScreen({super.key});
+  final UserModel user;
+
+  const ContactEditScreen({super.key, required this.user});
 
   @override
   State<ContactEditScreen> createState() => _ContactEditScreenState();
 }
 
 class _ContactEditScreenState extends State<ContactEditScreen> {
-  final _phoneController = TextEditingController();
-  final _altEmailController = TextEditingController();
+  late TextEditingController _phoneController;
+  late TextEditingController _altEmailController;
 
-  void _saveContact() {
-    // Save to backend (not implemented)
-    Navigator.pop(context);
+  @override
+  void initState() {
+    super.initState();
+    _phoneController = TextEditingController(text: widget.user.contact);
+    _altEmailController = TextEditingController(text: widget.user.email);
   }
 
   @override
@@ -21,6 +26,22 @@ class _ContactEditScreenState extends State<ContactEditScreen> {
     _phoneController.dispose();
     _altEmailController.dispose();
     super.dispose();
+  }
+
+  void _saveContact() {
+    final updatedUser = UserModel(
+      id: widget.user.id,
+      name: widget.user.name,
+      contact: _phoneController.text.trim(),
+      email: _altEmailController.text.trim(),
+      skills: widget.user.skills,
+      profilePictureUrl: widget.user.profilePictureUrl,
+    );
+
+    // TODO: Save updatedUser to backend
+    // e.g., ApiService.updateUser(updatedUser)
+
+    Navigator.pop(context, updatedUser); // You could return the updated user
   }
 
   @override

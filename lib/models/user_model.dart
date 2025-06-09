@@ -20,28 +20,32 @@ class UserModel {
     if (json['skills'] != null) {
       skillNames =
           (json['skills'] as List)
-              .map((skillObj) => skillObj['skill']?.toString() ?? '')
+              .map(
+                (skillObj) => skillObj['skill']?['skillName']?.toString() ?? '',
+              )
+              .where((skill) => skill.isNotEmpty)
               .toList();
     }
 
     return UserModel(
-      id: json['id'].toString(),
+      id: json['userId'].toString(),
       name: json['name'] ?? '',
-      contact: json['contact'] ?? '',
+      contact: json['phoneNumber'] ?? '',
       email: json['email'] ?? '',
       skills: skillNames,
       profilePictureUrl:
-          json['profilePictureUrl'] ?? 'https://placehold.co/150x150/png',
+          json['profilePhoto'] ?? 'https://placehold.co/150x150/png',
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'userId': id,
       'name': name,
-      'contact': contact,
+      'phoneNumber': contact,
       'email': email,
       'skills': skills,
-      'profilePictureUrl': profilePictureUrl,
+      'profilePhoto': profilePictureUrl,
     };
   }
 }
